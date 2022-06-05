@@ -7,7 +7,10 @@
           <h3>Übersicht</h3>
         </div>
       </div>
-      <q-btn round @click="test" label="Refresh" />
+      <!--q-btn round @click="refresh" label="Refresh" /-->
+
+      <div></div>
+
       <div class="row">
         <div class="col-2"></div>
         <div class="col-8 self-center">
@@ -26,53 +29,19 @@
     <div class="q-pa-md">
       <q-table
         title="Historie"
-        :rows="rows"
+        :rows="this.rows"
         :columns="columns"
         row-key="name"
-        :selected-rows-label="getSelectedString"
-        selection="multiple"
-        v-model:selected="selected"
-      >
-        <template v-slot:top="props">
-          <div v-if="$q.screen.gt.xs" class="col">
-            <q-toggle v-model="visibleColumns" val="epd" label="EPD" />
-            <q-toggle v-model="visibleColumns" val="midata" label="Midata" />
-          </div>
-          <q-select
-            v-else
-            v-model="visibleColumns"
-            multiple
-            borderless
-            dense
-            options-dense
-            :display-value="$q.lang.table.columns"
-            emit-value
-            map-options
-            :options="columns"
-            option-value="name"
-            style="min-width: 150px"
-          />
-
-          <q-btn
-            flat
-            round
-            dense
-            :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-            @click="props.toggleFullscreen"
-            class="q-ml-md"
-          />
-        </template>
-      </q-table>
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { storage } from 'src/boot/plugins';
+import { vaccinationsMidata } from 'src/plugins/midataService';
 import { ref } from 'vue';
 import { defineComponent } from 'vue';
 import { loggedInPatient, vaccinations } from '../plugins/epdService.ts';
-
 
 const columns = [
   {
@@ -108,47 +77,32 @@ const columns = [
   { name: 'practicioner', label: 'Behandelnder Arzt', field: 'practicioner' },
 ];
 
-const rowsMidata = storage.getImmunizations();
-const rowsEPD = vaccinations;
-
-let rows = [];
-
-if (rowsEPD && rowsMidata) rows.concat(rowsEPD, rowsMidata);
-if (rowsEPD) rows = rowsEPD;
-//if (rowsMidata) rows = rowsMidata;
-
-
 export default defineComponent({
-  data() {
-    return {};
-  },
   methods: {
-    test() {
+    refresh() {
       this.$epd.getVaccinations();
     },
   },
   setup() {
-    const selected = ref([]);
     return {
       patientName: ref(
-        loggedInPatient.loggedIn?.name[0].family ?? 'Bitte Patient erfassen'
+        loggedInPatient.loggedIn?.name[0].family ?? 'Please Log in'
       ),
       stoffname: 'hello',
       date: ref('2022/01/01'),
       group: ref([]),
       model: ref(null),
       columns,
-      rows,
-      selected,
       visibleColumns: ref([]),
-      getSelectedString() {
-        return selected.value.length === 0
-          ? ''
-          : `${selected.value.length} record${
-              selected.value.length > 1 ? 's' : ''
-            } selected of ${rows.length}`;
-      },
+    };
+  },
+  data() {
+    return {
+      rowsMidata: vaccinationsMidata,
+      rowsEPD: vaccinations,
+      rows: ref([].concat(vaccinations, vaccinationsMidata))
     };
   },
 });
+
 </script>
