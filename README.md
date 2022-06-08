@@ -1,10 +1,6 @@
-Outdated, in progress
+Impfconnect is a web application developed Argollo André and Loosli Lukas for the course Living Case 2 of the University of applied sciences TI. 
 
-~~# Midata Quasar Starter Application~~
-
-~~A starter/demo application created with the Quasar CLI and UI Framework. It provides an introduction to web development and shows what MIDATA is and how to set up an application on the MIDATA test server. It also includes a small MIDATA application that showcases the OAuth 2.0 authentication process and implements basic functionality of the npm package [JSonFhir](https://www.npmjs.com/package/@i4mi/js-on-fhir).~~
-
-~~This starter/demo application is aimed at students and interested parties who are planning to develop a web application with MIDATA. It should give a first insight into the subjects.~~
+It is being developed to test the use case of communicating via FHIR and the VACD CH standard. The connecting services, with which are being communicated are MIDATA and the EPD. 
 
 ## Setup
 Node and npm have to be installed on your machine. The nodejs package includes both node and npm executables.
@@ -42,10 +38,10 @@ npm install npm -g
 ```
 
 ### Repository
-To download the repo from github, use `git clone https://github.com/i4mi/midata-quasar-starter-app.git` in your terminal.
+To download the repo from github, use `git clone https://github.com/8O0/lc2_Argoa1_Loosl1_Impfconnect.git` in your terminal.
 
 ### Install the dependencies
-Then change the directory with `cd midata-quasar-starter-app` and install the dependencies.
+Then change the directory with `cd impfconnect` and install the dependencies.
 ```bash
 npm i
 ```
@@ -65,32 +61,3 @@ npm run lint
 ```bash
 npx quasar build
 ```
-
-### Automatic deployment to GitHub Pages
-The production build of the app can be deployed automatically to the GitHub Pages by using the GitHub Actions.
-A workflow is already implemented, it just needs a few settings. You can also adjust it to your own needs (for example linting on development branch).
-
-After correct setup, the workflow deploys the app when you push to a branch **main**. When you use **master** see the corresponding setting below. When changes are detected the workflow pushes the generated build files to a branch **gh-pages**. There the files are picked up by a GitHub-internal job and published to a public, repository specific domain. For this repository it is: https://i4mi.github.io/midata-quasar-starter-app/
-
-#### Check publicPath
-When the app is served in a subdirectory (bla.com/pizza/ instead of bla.com), which is the case for the GitHub Pages, you need to set the variable **publicPath** in **quasar.conf.js** to the name of the subdirectory (corresponds to your repository name).
-For this app the production **publicPath** is "/midata-quasar-starter-app/".
-
-#### Redirect URL for Midata
-The MIDATA service needs to know the URL where to redirect the user after successful login.
-This can be configured in **quasar.conf.js** with the **VUE_FHIR_REDIRECT_URL** variable (second entry).
-Make sure it also includes "/#/midata/demo" and it is registered as **redirect URI** in the MIDATA app declaration.
-
-#### Enable GitHub Pages
-1. If it doesn't exist yet, push a new branch to your repository called **gh-pages**
-2. Open repository settings > Pages
-3. Select Source: gh-pages, /root -> Save
-
-#### Check default branch
-Make sure the name of your default branch is listed as trigger in the workflow file. Currently it uses the branch **main** to trigger the **build_and_deploy** job.
-The workflow file is located here: **root/.github/workflows/main.yml**
-Note: Depending on your ssh token permissions you may only be able to edit files in this location via browser.
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
-
