@@ -2,14 +2,14 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="impfconnect-fade">
-        <q-btn
+        <!-- <q-btn
           flat
           dense
           round
           icon="search"
           aria-label="Search"
           @click="toggleLeftDrawer"
-        />
+        /> -->
         <q-toolbar-title> <q-img
           src="../assets/overview/logo_transparent.png"
           
@@ -23,15 +23,6 @@
           />
       </q-toolbar>
     </q-header>
-
-    <q-drawer v-model="drawerExpanded" show-if-above bordered>
-      <q-list>
-        <q-item-label header> All entries </q-item-label>
-        
-        
-      </q-list>
-    </q-drawer>
-
     <q-page-container class="my-div">
       <router-view />
     </q-page-container>
@@ -39,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import PageLinks from 'components/PageLinks.vue';
+import PageLinks from '../components/PageLinks.vue';
 
 const linksList = [
   {
@@ -58,12 +49,12 @@ const midataLinksList = [
   {
     title: 'Login',
     icon: 'person',
-    link: '/midata/demo',
+    link: '/login',
   },
 ];
 
 
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -73,16 +64,11 @@ export default defineComponent({
   },
 
   setup() {
-    const drawerExpanded = ref(false);
 
     return {
       pageLinks: linksList,
       midataPageLinks: midataLinksList,
 
-      drawerExpanded,
-      toggleLeftDrawer() {
-        drawerExpanded.value = !drawerExpanded.value;
-      },
     };
   },
 });

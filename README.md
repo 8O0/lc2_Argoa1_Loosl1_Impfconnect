@@ -1,4 +1,9 @@
 
+Impfconnect is a web application developed Argollo André and Loosli Lukas for the course Living Case 2 of the University of applied sciences TI. 
+
+It is being developed to test the use case of communicating via FHIR and the VACD CH standard. The connecting services, with which are being communicated are MIDATA and the EPD. 
+
+
 ## Setup
 Node and npm have to be installed on your machine. The nodejs package includes both node and npm executables.
 
@@ -34,6 +39,16 @@ If you need to update `npm`, you can update using `npm`.
 npm install npm -g
 ```
 
+
+### Repository
+To download the repo from github, use `git clone https://github.com/8O0/lc2_Argoa1_Loosl1_Impfconnect.git` in your terminal.
+
+### Install the dependencies
+Then change the directory with `cd impfconnect` and install the dependencies.
+```bash
+npm i
+```
+
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 Make sure that port 8080 isn't already in use. You need to be running the webapp on http://localhost:8080, otherwise the MIDATA demo won't work (due to OAuth2 redirect url mismatch).
 ```bash
@@ -49,5 +64,4 @@ npm run lint
 ```bash
 npx quasar build
 ```
-
 
